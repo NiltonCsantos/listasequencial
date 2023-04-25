@@ -1,155 +1,48 @@
 package org.example.listasequencial;
 
-import java.util.Comparator;
 
-public class Lista {
+public abstract class Lista<T>   {
 
-    private int[] elementos;
+    private T[] elementos;
 
-    private int capacidade;
+    private int indice;
 
-    public Lista(int capacidade) {
-
-        this.elementos= new int[capacidade];
+    public int getIndice() {
+        return indice;
     }
 
-    public int[] getElementos() {
+
+    public void setIndice(int indice) {
+        this.indice = indice;
+    }
+
+    public Lista(int capacidade){
+        this.elementos= (T[]) new Object[capacidade];
+    }
+
+    public T[] getElementos() {
         return elementos;
     }
 
-    public void setElementos(int[] elementos) {
-        this.elementos = elementos;
+    public void setElementos(T elemento) {
+        this.elementos[indice] = elemento;
+    }
+
+    public  void  atualizarElementos(T novoElementos[]){
+        this.elementos=novoElementos;
     }
 
 
-    public void adiconar(int elemento) {
+   public abstract void inicializar(int ai, int an);
 
-        for(int i=0; i<=this.elementos.length; i++){
+   public abstract void adiconar(T elemento);
 
-            if(this.elementos[i]==0) {
-                this.elementos[i]=elemento;
-                break;
-            }
+   public abstract void adiconarInicio(T elemento);
 
-        }
+   public abstract void adiconarFinal(T elemento);
 
-    }
-    public void adiconarInicio(int elemento) {
+    public abstract void excluirElemento(int indice);
 
-        int aux=0;
-
-        for (int i = 0; i <this.elementos.length ; i++) {
-
-            if (this.elementos[i]!=0){
-                aux++;
-            }
-
-        }
-
-        if (aux==this.elementos.length){
-
-            int vetorAuxiliar[]= this.elementos;
-
-            this.elementos= new int[aux+1];
-
-            for (int i = 0; i <vetorAuxiliar.length ; i++) {
-
-                this.elementos[i]=vetorAuxiliar[i];
-
-            }
-
-
-
-
-                    elementos[elementos.length-1]=elemento;
-                    aux=elementos[0];
-                    elementos[0]=elementos[elementos.length-1];
-                    elementos[elementos.length-1]=aux;
-
-
-
-        }
-
-
-
-
-
-
-
-
-
-
-
-
-
-    }
-    public  void adiconarFinal(int elemento){
-
-        int aux=0;
-
-        for (int i = 0; i < elementos.length; i++) {
-
-            if (elementos[i]!=0){
-                aux++;
-            }
-
-        }
-
-        System.out.println("Aux"+ aux);
-        System.out.println("leng"+ this.elementos.length);
-
-        if (aux==this.elementos.length){
-            int vetorAuxiliar[]= this.elementos;
-            this.elementos= new int[aux+1];
-
-            for (int i = 0; i <vetorAuxiliar.length ; i++) {
-
-                this.elementos[i]=vetorAuxiliar[i];
-
-            }
-
-
-            this.elementos[this.elementos.length-1]=elemento;
-        }
-
-    }
-
-    public void excluirElemento(int indice) {
-
-        this.elementos[indice] = 0;
-        int aux= elementos[elementos.length-1];
-        this.elementos[elementos.length-1]=elementos[indice];
-        this.elementos[indice]=aux;
-
-        int vetorAuxiliar[]= new int[elementos.length-1];
-
-        for (int i = 0; i <vetorAuxiliar.length ; i++) {
-
-            vetorAuxiliar[i]=elementos[i];
-
-        }
-
-        elementos=vetorAuxiliar;
-
-    }
-
-    public  int pesquisarElemento(int elemento){
-
-        int resultado=0;
-
-        for (int i = 0; i < elementos.length; i++) {
-
-            if (elemento == elementos[i]) {
-                resultado= elemento;
-                break;
-            }
-
-        }
-
-        return resultado;
-
-    }
-
-
+    public  abstract T pesquisarElemento(T elemento);
 
 }
